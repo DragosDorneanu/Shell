@@ -15,12 +15,12 @@ import java.lang.StringBuilder;
 
 public class ShellFrame extends Frame 
 {
-	public static StringBuilder command;
 	public static final long serialVersionUID = 0L;
+	public static StringBuilder command;
 	public static JTextArea commandArea;
 	public static byte argc;
 	public static Font textFont;
-	JScrollPane scroll;
+	private JScrollPane scroll;
 	public static Frame thisShellFrame;
 	public static Path currentPath;
 		
@@ -82,7 +82,12 @@ public class ShellFrame extends Frame
 					throw new ManException();
 			}
 			else if(function.equals("list"))
-				ListDirectoryFunction.listCurrentDirectory();
+			{
+				if(argc == 0)
+					ListDirectoryFunction.listCurrentDirectory();
+				else
+					ListDirectoryFunction.listParameterDirectory(st.nextToken("\n").trim());
+			}
 			else if(function.equals("cd"))
 			{
 				String directoryName = st.nextToken("\n").trim();
@@ -128,7 +133,5 @@ public class ShellFrame extends Frame
 		frame.setVisible(true);
 	}
 }
-// 1) la comanda compusa fac for(currentArg = 0; currentArg < argc; ++currentArg) si iau toate argumentele
-// in afara de cel dat ca parametru asupra caruia se vor efectua operatiile
 
-// 2) implementeaza pipe-uri ("|")
+// 1) implementeaza pipe-uri ("|")
