@@ -6,7 +6,10 @@ Press 'Q'(quit) to exit the Man Page.
 
 Available functions :
 	
-	* exit : Close console(shell)
-	* clear : Type "clear" in shell console to clear all entered commands or outputed information
-	* list : List of all files and directories contained in current directory
-	* cd : change directory
+    * exit : Close console(shell).
+    * clear : Type "clear" in shell console to clear all entered commands or outputed information.
+    * cd : Change directory.
+    * cat : Display a text file's content on screen.
+    * find : Find if a file with given name as parameter exists or not in the current hierarchy of files.
+    * list : Display an array of strings denoting all files in the current directory or in the directory given as parameter.
+    * open : Open a file(.txt, .png, .flac, .exe etc.) or a folder.
