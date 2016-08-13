@@ -1,0 +1,2 @@
+Clear Man Page
+Here you will find information about "clear" function.

@@ -1,0 +1,12 @@
+Man Page
+Here you will find information about all of the available functions.
+For information about how to use a certein function type "man functionName".
+Press 'Q'(quit) to exit the Man Page.
+
+
+Available functions :
+	
+	* exit : Close console(shell)
+	* clear : Type "clear" in shell console to clear all entered commands or outputed information
+	* list : List of all files and directories contained in current directory
+	* cd : change directory

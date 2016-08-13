@@ -1,0 +1,2 @@
+CD(Change Directory) Man Page
+Here you will find information about "cd" function.
