@@ -115,6 +115,20 @@ public class ShellFrame extends Frame
 				FindFunction.find(currentPath, st.nextToken("\n").trim(), 1);
 			else if(function.equals("cat"))
 				CatFunction.cat(new File(st.nextToken("\n").trim()));
+			else if(function.equals("mkdir"))
+			{
+				if(argc == 0)
+					throw new MkdirException();
+				else 
+					MakeDirectoryFunction.mkdir(st.nextToken("\n").trim());
+			}
+			else if(function.equals("remove"))
+			{
+				if(argc == 0)
+					throw new RemoveException();
+				else
+					RemoveFileFunction.remove(st.nextToken("\n").trim());
+			}
 			else if(function.length() == 2 && function.charAt(1) == ':')
 			{
 				 Path possibleLocalDisk = FileSystems.getDefault().getPath(function); 
