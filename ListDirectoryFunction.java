@@ -118,7 +118,6 @@ public class ListDirectoryFunction
 		}
 	}
 	
-	//Review
 	public static void listParameterDirectory(String arguments) throws Exception
 	{
 		if(arguments.charAt(0) != '-')
