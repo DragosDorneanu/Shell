@@ -1,0 +1,2 @@
+Cat Man Page
+Here you will find information about "cat" function.
