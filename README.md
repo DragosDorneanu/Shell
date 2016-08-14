@@ -3,4 +3,4 @@ Simple Shell like application which works with files and supports simple functio
 
 
 Main class : ShellFrame.java;
-3 packages : shellFrameCharacteristics(contains ShellFrame.java), functions, customExceptions;
+3 packages with classes : shellFrameCharacteristics(contains ShellFrame.java), functions, customExceptions;
