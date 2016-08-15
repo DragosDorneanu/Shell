@@ -60,30 +60,22 @@ public class ListDirectoryFunction
 			sortByFileSize(docs, lowerBound, right);
 	}
 	
-	private static void descendingSort(File[] docs, int lowerBound, int upperBound)
+	private static void descendingSort(File[] docs)
 	{
-		int left = lowerBound, right = upperBound;
-		int mid = (left + right) / 2;
-		File aux;
-		while(left < right)
+		if(docs != null)
 		{
-			while(docs[left].getName().compareTo(docs[mid].getName()) > 0)
-				++left;
-			while(docs[right].getName().compareTo(docs[mid].getName()) < 0)
-				--right;
-			if(left <= right)
+			int frontIndex = 0;
+			int tailIndex = docs.length - 1;
+			File aux;
+			while(frontIndex < tailIndex)
 			{
-				aux = docs[left];
-				docs[left] = docs[right];
-				docs[right] = aux;
-				++left;
-				--right;
+				aux = docs[frontIndex];
+				docs[frontIndex] = docs[tailIndex];
+				docs[tailIndex] = aux;
+				++frontIndex;
+				--tailIndex;
 			}
 		}
-		if(left < upperBound)
-			descendingSort(docs, left, upperBound);
-		if(lowerBound < right)
-			descendingSort(docs, lowerBound, right);
 	}
 	
 	private static int getTypeOfListing(String type)
@@ -112,7 +104,7 @@ public class ListDirectoryFunction
 			switch(typeOfListing)
 			{
 			case 0 : sortByFileSize(docs, 0, docs.length - 1); break;
-			case 1 : descendingSort(docs, 0, docs.length - 1); break;
+			case 1 : descendingSort(docs); break;
 			default : throw new ListException();
 			}
 		}

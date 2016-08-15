@@ -21,8 +21,9 @@ public class ManFunction
 	
 	public static void manSpecificFunction(String functionName) throws Exception 
 	{
+		String line;
+		String manText = "";
 		BufferedReader in = null;
-		String manText = "", line;
 		if(functionName.equals("exit"))
 			 in = new BufferedReader(new FileReader("Exit Man Page.txt"));
 		else if(functionName.equals("clear"))
@@ -35,6 +36,12 @@ public class ManFunction
 			in = new BufferedReader(new FileReader("Find Man Page.txt"));
 		else if(functionName.equals("open"))
 			in = new BufferedReader(new FileReader("Open Man Page.txt"));
+		else if(functionName.equals("mkdir"))
+			in = new BufferedReader(new FileReader("Mkdir Man Page.txt"));
+		else if(functionName.equals("remove"))
+			in = new BufferedReader(new FileReader("Remove Man Page.txt"));
+		else if(functionName.equals("create"))
+			in = new BufferedReader(new FileReader("Create Man Page.txt"));
 		else
 			throw new customExceptions.ManException();
 		while((line = in.readLine()) != null)
