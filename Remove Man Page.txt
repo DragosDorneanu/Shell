@@ -1,0 +1,2 @@
+Remove Man Page
+Here you will find information about "remove" function.
