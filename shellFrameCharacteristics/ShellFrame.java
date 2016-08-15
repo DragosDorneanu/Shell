@@ -56,6 +56,90 @@ public class ShellFrame extends Frame
 		thisShellFrame = this;
 	}
 	
+	private static void tryToExecuteClearFunction() throws ClearException
+	{
+		if(argc == 0)
+			ClearFunction.clear();
+		else
+			throw new ClearException();
+	}
+	
+	private static void tryToExecuteManFunction(StringTokenizer st) throws Exception
+	{
+		if(argc == 0)
+			ManFunction.man();
+		else if(argc == 1)
+			ManFunction.manSpecificFunction(st.nextToken().trim());
+		else
+			throw new ManException();
+	}
+	
+	private static void tryToExecuteListFunction(StringTokenizer st) throws Exception
+	{
+		if(argc == 0)
+			ListDirectoryFunction.listCurrentDirectory();
+		else
+			ListDirectoryFunction.listParameterDirectory(st.nextToken("\n").trim());
+	}
+	
+	private static void tryToExecuteCdFunction(StringTokenizer st) throws CDException
+	{
+		String directoryName = st.nextToken("\n").trim();
+		if(directoryName.equals(".."))
+			ChangeDirectoryFunction.changeCurrentDirectoryToParentDirectory();
+		else
+		{
+			Path newDirectoryPath = FileSystems.getDefault().getPath(currentPath.toString(), directoryName);
+			File newDirectory = newDirectoryPath.toFile();
+			if(newDirectory.exists() && newDirectory.isDirectory())
+				ChangeDirectoryFunction.changeDirectory(newDirectoryPath);
+			else
+				throw new CDException();
+		}
+	}
+	
+	private static void tryToExecuteOpenFileFunction(StringTokenizer st) throws Exception
+	{
+		Path toOpenFilePath = FileSystems.getDefault().getPath(currentPath.toString(), st.nextToken("\n").trim());
+		if(Files.exists(toOpenFilePath))
+			OpenFileFunction.open(toOpenFilePath.toFile());
+		else
+			throw new OpenException();
+	}
+	
+	private static void tryToExecuteMkdirFunction(StringTokenizer st) throws Exception
+	{
+		if(argc == 0)
+			throw new MkdirException();
+		else 
+			MakeDirectoryFunction.mkdir(st.nextToken("\n").trim());
+	}
+	
+	private static void tryToExecuteRemoveFunction(StringTokenizer st) throws Exception
+	{
+		if(argc == 0)
+			throw new RemoveException();
+		else
+			RemoveFileFunction.remove(st.nextToken("\n").trim());
+	}
+	
+	private static void tryToExecuteCreateFileFunction(StringTokenizer st) throws Exception
+	{
+		if(argc == 0)
+			throw new CreateFileException();
+		else
+			CreateFileFunction.createFile(st.nextToken("\n").trim());
+	}
+	
+	private static void tryToChangeCurrentDirectoryToASpecificLocalDisk(String function) throws CDException
+	{
+		Path possibleLocalDisk = FileSystems.getDefault().getPath(function); 
+		 if(Files.exists(possibleLocalDisk))
+			ChangeDirectoryFunction.changeDirectory(possibleLocalDisk);
+		 else
+			throw new CDException();
+	}
+	
 	public static void solve() throws Exception
 	{
 		String function;
@@ -66,78 +150,29 @@ public class ShellFrame extends Frame
 			if(function.equals("exit"))
 				System.exit(0);
 			else if(function.equals("clear"))
-			{
-				if(argc == 0)
-					ClearFunction.clear();
-				else
-					throw new ClearException();
-			}
+				tryToExecuteClearFunction();
 			else if(function.equals("man"))
-			{
-				if(argc == 0)
-					ManFunction.man();
-				else if(argc == 1)
-					ManFunction.manSpecificFunction(st.nextToken().trim());
-				else
-					throw new ManException();
-			}
+				tryToExecuteManFunction(st);
 			else if(function.equals("list"))
-			{
-				if(argc == 0)
-					ListDirectoryFunction.listCurrentDirectory();
-				else
-					ListDirectoryFunction.listParameterDirectory(st.nextToken("\n").trim());
-			}
+				tryToExecuteListFunction(st);
 			else if(function.equals("cd"))
-			{
-				String directoryName = st.nextToken("\n").trim();
-				if(directoryName.equals(".."))
-					ChangeDirectoryFunction.changeCurrentDirectoryToParentDirectory();
-				else
-				{
-					Path newDirectoryPath = FileSystems.getDefault().getPath(currentPath.toString(), directoryName);
-					File newDirectory = newDirectoryPath.toFile();
-					if(newDirectory.exists() && newDirectory.isDirectory())
-						ChangeDirectoryFunction.changeDirectory(newDirectoryPath);
-					else
-						throw new CDException();
-				}
-			}
+				tryToExecuteCdFunction(st);
 			else if(function.equals("open"))
-			{
-				Path toOpenFilePath = FileSystems.getDefault().getPath(currentPath.toString(), st.nextToken("\n").trim());
-				if(Files.exists(toOpenFilePath))
-					OpenFileFunction.open(toOpenFilePath.toFile());
-				else
-					throw new OpenException();
-			}
+				tryToExecuteOpenFileFunction(st);
 			else if(function.equals("find"))
 				FindFunction.find(currentPath, st.nextToken("\n").trim(), 1);
 			else if(function.equals("cat"))
 				CatFunction.cat(new File(st.nextToken("\n").trim()));
 			else if(function.equals("mkdir"))
-			{
-				if(argc == 0)
-					throw new MkdirException();
-				else 
-					MakeDirectoryFunction.mkdir(st.nextToken("\n").trim());
-			}
+				tryToExecuteMkdirFunction(st);
 			else if(function.equals("remove"))
-			{
-				if(argc == 0)
-					throw new RemoveException();
-				else
-					RemoveFileFunction.remove(st.nextToken("\n").trim());
-			}
+				tryToExecuteRemoveFunction(st);
+			else if(function.equals("create"))
+				tryToExecuteCreateFileFunction(st);
 			else if(function.length() == 2 && function.charAt(1) == ':')
-			{
-				 Path possibleLocalDisk = FileSystems.getDefault().getPath(function); 
-				 if(Files.exists(possibleLocalDisk))
-					ChangeDirectoryFunction.changeDirectory(possibleLocalDisk);
-				 else
-					throw new CDException();
-			}
-			else throw new FunctionNotFoundException();
+				tryToChangeCurrentDirectoryToASpecificLocalDisk(function);
+			else 
+				throw new FunctionNotFoundException();
 		}
 	}
 	
