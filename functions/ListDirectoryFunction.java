@@ -20,7 +20,10 @@ public class ListDirectoryFunction
 		{
 			String allFiles = "";
 			for(File currentFile : currentDirectoryDocs)
-				allFiles += currentFile.getName() + '\n';
+			{
+				 if(currentFile != null)
+					 allFiles += currentFile.getName() + '\n';
+			}
 			ShellFrame.commandArea.setText(ShellFrame.commandArea.getText() + '\n' + allFiles);
 		}
 		else ShellFrame.commandArea.setText(ShellFrame.commandArea.getText() + '\n');
@@ -33,18 +36,58 @@ public class ListDirectoryFunction
 		displayListResult(currentDirectoryDocs);
 	}
 	
+	private static long findAPivot(File[] docs, int lowerBound, int upperBound) throws Exception
+	{
+		int mid = (lowerBound + upperBound) / 2, auxMid;
+		if(docs[mid] != null)
+			return Files.size(getPath(docs[mid]));
+		auxMid = mid - 1;
+		if(auxMid >= lowerBound)
+		{
+			while(auxMid >= lowerBound && docs[auxMid] == null)
+				--auxMid;
+		}
+		if(auxMid >= lowerBound)
+			return Files.size(getPath(docs[auxMid]));
+		auxMid = mid + 1;
+		while(auxMid <= upperBound && docs[auxMid] == null)
+			++auxMid;
+		if(auxMid <= upperBound)
+			return Files.size(getPath(docs[auxMid]));
+		return -1;
+	}
+	
 	private static void sortByFileSize(File[] docs, int lowerBound, int upperBound) throws Exception
 	{
 		int left = lowerBound, right = upperBound;
-		int mid = (left + right) / 2;
 		File aux;
-		long sizeOfMidDoc = Files.size(getPath(docs[mid]));
+		long sizeOfPivotDoc = findAPivot(docs, lowerBound, upperBound);
+		if(sizeOfPivotDoc == -1)
+			return;
 		while(left < right)
 		{
-			while(Files.size(getPath(docs[left])) < sizeOfMidDoc)
-				++left;
-			while(Files.size(getPath(docs[right])) > sizeOfMidDoc)
-				--right;
+			while(left <= right)
+			{
+				if(docs[left] != null)
+				{
+					if(Files.size(getPath(docs[left])) < sizeOfPivotDoc)
+						++left;
+					else
+						break;
+				}
+				else ++left;
+			}
+			while(right >= left)
+			{
+				if(docs[right] != null)
+				{
+					if(Files.size(getPath(docs[right])) > sizeOfPivotDoc)
+						--right;
+					else
+						break;
+				}
+				else --right;
+			}
 			if(left <= right)
 			{
 				aux = docs[left];
@@ -84,6 +127,38 @@ public class ListDirectoryFunction
 			return 0;
 		if(type.equals("-desc"))
 			return 1;
+		if(type.equals("-pdf"))
+			return 2;
+		if(type.equals("-txt"))
+			return 3;
+		if(type.equals("-png"))
+			return 4;
+		if(type.equals("-java"))
+			return 5;
+		if(type.equals("-cpp"))
+			return 6;
+		if(type.equals("-exe"))
+			return 7;
+		if(type.equals("-flac"))
+			return 8;
+		if(type.equals("-mp3"))
+			return 9;
+		if(type.equals("-zip"))
+			return 10;
+		if(type.equals("-jar"))
+			return 11;
+		if(type.equals("-jpg"))
+			return 12;
+		if(type.equals("-xlsx"))
+			return 13;
+		if(type.equals("-docx"))
+			return 14;
+		if(type.equals("-pptx"))
+			return 15;
+		if(type.equals("-html"))
+			return 16;
+		if(type.equals("-css"))
+			return 17;
 		return -1;
 	}
 	
@@ -93,6 +168,15 @@ public class ListDirectoryFunction
 			args.add(st.nextToken().trim());
 		for(int index = args.size() - 1; index >= 0 && args.get(index).charAt(0) != '-'; --index)
 			fileName.insert(0, args.get(index) + ' ');
+	}
+	
+	private static void getFilesWithASpecificType(File[] docs, String fileType)
+	{
+		for(int index = 0; index < docs.length; ++index)
+		{
+			if(!docs[index].getName().endsWith(fileType))
+				docs[index] = null;
+		}
 	}
 	
 	private static void parseListOptions(File[] docs, ArrayList<String> args) throws Exception
@@ -105,6 +189,22 @@ public class ListDirectoryFunction
 			{
 			case 0 : sortByFileSize(docs, 0, docs.length - 1); break;
 			case 1 : descendingSort(docs); break;
+			case 2 : getFilesWithASpecificType(docs, ".pdf"); break;
+			case 3 : getFilesWithASpecificType(docs, ".txt"); break;
+			case 4 : getFilesWithASpecificType(docs, ".png"); break;
+			case 5 : getFilesWithASpecificType(docs, ".java"); break;
+			case 6 : getFilesWithASpecificType(docs, ".cpp"); break;
+			case 7 : getFilesWithASpecificType(docs, ".exe"); break;
+			case 8 : getFilesWithASpecificType(docs, ".flac"); break;
+			case 9 : getFilesWithASpecificType(docs, ".mp3"); break;
+			case 10 : getFilesWithASpecificType(docs, ".zip"); break;
+			case 11 : getFilesWithASpecificType(docs, ".jar"); break;
+			case 12 : getFilesWithASpecificType(docs, ".jpg"); break;
+			case 13 : getFilesWithASpecificType(docs, ".xlsx"); break;
+			case 14 : getFilesWithASpecificType(docs, ".docx"); break;
+			case 15 : getFilesWithASpecificType(docs, ".pptx"); break;
+			case 16 : getFilesWithASpecificType(docs, ".html"); break;
+			case 17 : getFilesWithASpecificType(docs, ".css"); break;
 			default : throw new ListException();
 			}
 		}

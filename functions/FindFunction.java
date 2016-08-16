@@ -2,30 +2,42 @@ package functions;
 import java.io.File;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
-import shellFrameCharacteristics.ShellFrame;
 
 public class FindFunction 
 {
-	public static int find(Path currentDirectoryPath, String searchedFileName, int currentLevel)
+	private static Path binarySearchFile(File[] docs, int lower, int upper, String searchedFileName)
 	{
-		File[] currentDirectory = currentDirectoryPath.toFile().listFiles();
-		if(currentDirectory != null)
+		if(lower <= upper)
 		{
-			for(File currentFile : currentDirectory)
+			int mid = (lower + upper) / 2;
+			int differenceBetweenFileNames = searchedFileName.compareTo(docs[mid].getName().toLowerCase());
+			if(differenceBetweenFileNames == 0)
+				return docs[mid].toPath();
+			if(differenceBetweenFileNames < 0)
+				return binarySearchFile(docs, lower, mid - 1, searchedFileName);
+			return binarySearchFile(docs, mid + 1, upper, searchedFileName);
+		}
+		return null;
+	}
+	
+	public static Path find(Path currentDirectoryPath, String searchedFileName)
+	{
+		File[] docs = currentDirectoryPath.toFile().listFiles();
+		if(docs != null)
+		{
+			Path foundFilePath = binarySearchFile(docs, 0, docs.length - 1, searchedFileName);
+			if(foundFilePath != null)
+				return foundFilePath;
+			for(File currentFile : docs)
 			{
-				if(searchedFileName.equals(currentFile.getName()))
+				if(currentFile.isDirectory())
 				{
-					ShellFrame.commandArea.setText(ShellFrame.commandArea.getText() + "\nSearched File found : " + currentDirectoryPath + '\\' + searchedFileName);
-					return currentLevel;
-				}
-				else if (currentFile.isDirectory())
-				{
-					int foundLevel = find(FileSystems.getDefault().getPath(currentDirectoryPath.toString(), currentFile.getName()), searchedFileName, currentLevel + 1);
-					if(foundLevel != 0)
-						return foundLevel;
+					foundFilePath = find(FileSystems.getDefault().getPath(currentDirectoryPath.toString(), currentFile.getName()), searchedFileName);
+					if(foundFilePath != null)
+						return foundFilePath;
 				}
 			}
 		}
-		return 0;
+		return null;
 	}
 }
