@@ -1,2 +1,26 @@
 List Man Page
 Here you will find information about "list" function.
+
+
+Basic information :
+	* this function allows you to request a list of current directory files
+
+Options available :
+	* -size : request a list of current directory files ordered by size(in bytes)
+	* -desc : request a list of current directory files in non-lexicographc order
+	* -pdf : returns a list of all ".pdf" files in your current directory
+	* -txt : returns a list of all ".txt" files in your current directory
+	* -png : returns a list of all ".png" files in your current directory
+	* -java : returns a list of all ".java" files in your current directory
+	* -cpp : returns a list of all ".cpp" files in your current directory
+	* -exe : returns a list of all ".exe" files in your current directory
+	* -flac : returns a list of all ".flac" files in your current directory
+	* -mp3 : returns a list of all ".mp3" files in your current directory
+	* -zip : returns a list of all ".zip" files in your current directory
+	* -jar : returns a list of all ".jar" files in your current directory
+	* -jpg : returns a list of all ".jpg" files in your current directory
+	* -xlsx : returns a list of all ".xlsx" files in your current directory
+	* -docx : returns a list of all ".docx" files in your current directory
+	* -pptx : returns a list of all ".pptx" files in your current directory
+	* -html : returns a list of all ".html" files in your current directory
+	* -css : returns a list of all ".css" files in your current directory
