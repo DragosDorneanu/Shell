@@ -42,6 +42,8 @@ public class ManFunction
 			in = new BufferedReader(new FileReader("Remove Man Page.txt"));
 		else if(functionName.equals("create"))
 			in = new BufferedReader(new FileReader("Create Man Page.txt"));
+		else if(functionName.equals("cat"))
+			in = new BufferedReader(new FileReader("Cat Man Page.txt"));
 		else
 			throw new customExceptions.ManException();
 		while((line = in.readLine()) != null)
