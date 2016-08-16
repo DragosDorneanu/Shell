@@ -140,6 +140,15 @@ public class ShellFrame extends Frame
 			throw new CDException();
 	}
 	
+	private static void executeFindFunction(StringTokenizer st)
+	{
+		Path resultPath = FindFunction.find(currentPath, st.nextToken("\n").trim().toLowerCase());
+		if(resultPath != null)
+			ShellFrame.commandArea.setText(ShellFrame.commandArea.getText() + "\nSearched File found : " + resultPath);
+		else
+			ShellFrame.commandArea.setText(ShellFrame.commandArea.getText() + "\nSearched File was not found\n");
+	}
+	
 	public static void solve() throws Exception
 	{
 		String function;
@@ -160,7 +169,7 @@ public class ShellFrame extends Frame
 			else if(function.equals("open"))
 				tryToExecuteOpenFileFunction(st);
 			else if(function.equals("find"))
-				FindFunction.find(currentPath, st.nextToken("\n").trim(), 1);
+				executeFindFunction(st);
 			else if(function.equals("cat"))
 				CatFunction.cat(new File(st.nextToken("\n").trim()));
 			else if(function.equals("mkdir"))
