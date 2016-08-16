@@ -159,6 +159,8 @@ public class ListDirectoryFunction
 			return 16;
 		if(type.equals("-css"))
 			return 17;
+		if(type.equals("-rar"))
+			return 18;
 		return -1;
 	}
 	
@@ -205,6 +207,7 @@ public class ListDirectoryFunction
 			case 15 : getFilesWithASpecificType(docs, ".pptx"); break;
 			case 16 : getFilesWithASpecificType(docs, ".html"); break;
 			case 17 : getFilesWithASpecificType(docs, ".css"); break;
+			case 18 : getFilesWithASpecificType(docs, ".rar"); break; 
 			default : throw new ListException();
 			}
 		}
