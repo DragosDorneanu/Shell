@@ -24,3 +24,4 @@ Options available :
 	* -pptx : returns a list of all ".pptx" files in your current directory
 	* -html : returns a list of all ".html" files in your current directory
 	* -css : returns a list of all ".css" files in your current directory
+	* -rights : request a list with access rights on every file in your current directory
