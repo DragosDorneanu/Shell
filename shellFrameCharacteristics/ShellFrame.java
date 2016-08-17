@@ -195,5 +195,3 @@ public class ShellFrame extends Frame
 		frame.setVisible(true);
 	}
 }
-
-// 1) implementeaza pipe-uri ("|")
