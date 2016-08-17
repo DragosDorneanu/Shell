@@ -10,6 +10,8 @@ import shellFrameCharacteristics.ShellFrame;
 
 public class ListDirectoryFunction 
 {
+	private static boolean displayListWithAccessRights = false;
+	
 	private static Path getPath(File fileName){
 		return FileSystems.getDefault().getPath(fileName.getAbsolutePath());
 	}
@@ -23,6 +25,36 @@ public class ListDirectoryFunction
 			{
 				 if(currentFile != null)
 					 allFiles += currentFile.getName() + '\n';
+			}
+			ShellFrame.commandArea.setText(ShellFrame.commandArea.getText() + '\n' + allFiles);
+		}
+		else ShellFrame.commandArea.setText(ShellFrame.commandArea.getText() + '\n');
+	}
+	
+	private static String getAccessRightsOnFile(File file)
+	{
+		Path currentFilePath = getPath(file);
+		StringBuilder accessRightsOnCurrentFile = new StringBuilder("----");
+		if(Files.isDirectory(currentFilePath))
+			accessRightsOnCurrentFile.setCharAt(0, 'd');
+		if(Files.isReadable(currentFilePath))
+				accessRightsOnCurrentFile.setCharAt(1, 'r');
+		if(Files.isWritable(currentFilePath))
+			accessRightsOnCurrentFile.setCharAt(2, 'w');
+		if(Files.isWritable(currentFilePath))
+			accessRightsOnCurrentFile.setCharAt(3, 'x');
+		return accessRightsOnCurrentFile.toString();
+	}
+	
+	private static void displayListResultWithAccessRightsOnFiles(File[] currentDirectoryDocs)
+	{
+		if(currentDirectoryDocs != null)
+		{
+			String allFiles = "";
+			for(File currentFile : currentDirectoryDocs)
+			{
+				if(currentFile != null)
+					allFiles += getAccessRightsOnFile(currentFile) + "    " + currentFile.getName() + '\n';
 			}
 			ShellFrame.commandArea.setText(ShellFrame.commandArea.getText() + '\n' + allFiles);
 		}
@@ -161,6 +193,8 @@ public class ListDirectoryFunction
 			return 17;
 		if(type.equals("-rar"))
 			return 18;
+		if(type.equals("-rights"))
+			return 19;
 		return -1;
 	}
 	
@@ -184,6 +218,7 @@ public class ListDirectoryFunction
 	private static void parseListOptions(File[] docs, ArrayList<String> args) throws Exception
 	{
 		int typeOfListing;
+		displayListWithAccessRights = false;
 		for(int index = 0; index < args.size() && args.get(index).charAt(0) == '-'; ++index)
 		{
 			typeOfListing = getTypeOfListing(args.get(index));
@@ -207,7 +242,8 @@ public class ListDirectoryFunction
 			case 15 : getFilesWithASpecificType(docs, ".pptx"); break;
 			case 16 : getFilesWithASpecificType(docs, ".html"); break;
 			case 17 : getFilesWithASpecificType(docs, ".css"); break;
-			case 18 : getFilesWithASpecificType(docs, ".rar"); break; 
+			case 18 : getFilesWithASpecificType(docs, ".rar"); break;
+			case 19 : displayListWithAccessRights = true; break;
 			default : throw new ListException();
 			}
 		}
@@ -234,7 +270,10 @@ public class ListDirectoryFunction
 				throw new ListException();
 			File[] docs = toListFilePath.toFile().listFiles();
 			parseListOptions(docs, args);
-			displayListResult(docs);
+			if(displayListWithAccessRights == true)
+				displayListResultWithAccessRightsOnFiles(docs);
+			else
+				displayListResult(docs);
 		}
 	}
 }

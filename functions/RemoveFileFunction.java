@@ -27,4 +27,21 @@ public class RemoveFileFunction
 		}
 		else throw new RemoveException();
 	}
+	
+	public static Path remove(Path filePath) throws Exception
+	{
+		if(Files.exists(filePath))
+		{
+			if(Files.isDirectory(filePath))
+			{
+				if(filePath.toFile().listFiles().length == 0)
+					Files.delete(filePath);
+				else 
+					throw new RemoveException();
+			}
+			else Files.delete(filePath);
+			return filePath;
+		}
+		else throw new RemoveException();
+	}
 }
