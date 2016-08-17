@@ -19,4 +19,15 @@ public class ChangeDirectoryFunction
 			currentDirectory.deleteCharAt(currentDirectory.length() - 1);
 		ShellFrame.currentPath = FileSystems.getDefault().getPath(currentDirectory.toString().trim());
 	}
+	
+	public static Path changeCurrentDirectoryToParentDirectory(Path currentPath)
+	{
+		StringBuilder currentDirectory = new StringBuilder(currentPath.toString());
+		while (currentDirectory.length() > 2 && currentDirectory.charAt(currentDirectory.length() - 1) != '\\')
+			currentDirectory.deleteCharAt(currentDirectory.length() - 1);
+		if(currentDirectory.length() > 2)
+			currentDirectory.deleteCharAt(currentDirectory.length() - 1);
+		currentPath = FileSystems.getDefault().getPath(currentDirectory.toString().trim());
+		return currentPath;
+	}
 }
