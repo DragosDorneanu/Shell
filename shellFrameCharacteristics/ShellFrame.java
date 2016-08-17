@@ -22,8 +22,8 @@ public class ShellFrame extends Frame
 	public static Font textFont;
 	private JScrollPane scroll;
 	public static Frame thisShellFrame;
-	public static Path currentPath;
-		
+	public static Path currentPath; 
+	
 	private void initShellFrameCharacteristics()
 	{
 		this.setBounds(200, 200, 850, 400);
@@ -140,9 +140,13 @@ public class ShellFrame extends Frame
 			throw new CDException();
 	}
 	
-	private static void executeFindFunction(StringTokenizer st)
+	private static void tryToExecuteFindFunction(StringTokenizer st) throws Exception
 	{
-		Path resultPath = FindFunction.find(currentPath, st.nextToken("\n").trim().toLowerCase());
+		Path resultPath;
+		if(argc == 1)
+			resultPath = FindFunction.find(currentPath, st.nextToken("\n").trim().toLowerCase());
+		else 
+			resultPath = FindFunction.findWithSpecificOptions(currentPath, st.nextToken("\n").trim().toLowerCase());
 		if(resultPath != null)
 			ShellFrame.commandArea.setText(ShellFrame.commandArea.getText() + "\nSearched File found : " + resultPath);
 		else
@@ -169,7 +173,7 @@ public class ShellFrame extends Frame
 			else if(function.equals("open"))
 				tryToExecuteOpenFileFunction(st);
 			else if(function.equals("find"))
-				executeFindFunction(st);
+				tryToExecuteFindFunction(st);
 			else if(function.equals("cat"))
 				CatFunction.cat(new File(st.nextToken("\n").trim()));
 			else if(function.equals("mkdir"))

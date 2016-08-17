@@ -15,7 +15,7 @@ public class KeyListenerClass implements KeyListener
 			if(ShellFrame.command.length() > 0)
 			{
 				try
-				{
+				{					
 					ShellFrame.solve();
 					ShellFrame.commandArea.setText(ShellFrame.commandArea.getText() + "\n\n" + ShellFrame.currentPath + " > ");
 				}
