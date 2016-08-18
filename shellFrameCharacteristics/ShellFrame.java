@@ -144,13 +144,15 @@ public class ShellFrame extends Frame
 	{
 		Path resultPath;
 		if(argc == 1)
+		{
 			resultPath = FindFunction.find(currentPath, st.nextToken("\n").trim().toLowerCase());
-		else 
-			resultPath = FindFunction.findWithSpecificOptions(currentPath, st.nextToken("\n").trim().toLowerCase());
-		if(resultPath != null)
-			ShellFrame.commandArea.setText(ShellFrame.commandArea.getText() + "\nSearched File found : " + resultPath);
-		else
-			ShellFrame.commandArea.setText(ShellFrame.commandArea.getText() + "\nSearched File was not found\n");
+			if(resultPath != null)
+				ShellFrame.commandArea.setText(ShellFrame.commandArea.getText() + "\nSearched File found : " + resultPath);
+			else
+				ShellFrame.commandArea.setText(ShellFrame.commandArea.getText() + "\nSearched File was not found\n");
+
+		}
+		else FindFunction.findWithSpecificOptions(currentPath, st.nextToken("\n").trim().toLowerCase());
 	}
 	
 	public static void solve() throws Exception
@@ -182,6 +184,8 @@ public class ShellFrame extends Frame
 				tryToExecuteRemoveFunction(st);
 			else if(function.equals("create"))
 				tryToExecuteCreateFileFunction(st);
+			else if(function.equals("cp"))
+				CopyFunction.copy(st.nextToken("\n").trim());
 			else if(function.length() == 2 && function.charAt(1) == ':')
 				tryToChangeCurrentDirectoryToASpecificLocalDisk(function);
 			else 
