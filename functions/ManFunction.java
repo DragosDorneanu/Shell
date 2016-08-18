@@ -1,6 +1,7 @@
 package functions;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import customExceptions.ManException;
 import shellFrameCharacteristics.ManFrame;
 import shellFrameCharacteristics.ShellFrame;
 
@@ -44,8 +45,10 @@ public class ManFunction
 			in = new BufferedReader(new FileReader("Create Man Page.txt"));
 		else if(functionName.equals("cat"))
 			in = new BufferedReader(new FileReader("Cat Man Page.txt"));
+		else if(functionName.equals("cp"))
+			in = new BufferedReader(new FileReader("Cp Man Page.txt"));
 		else
-			throw new customExceptions.ManException();
+			throw new ManException();
 		while((line = in.readLine()) != null)
 			manText += line + '\n';
 		in.close();
