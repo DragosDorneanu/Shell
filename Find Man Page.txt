@@ -7,3 +7,12 @@ Basic information :
 Options available :
 	* -maxdepth [number] : get the file path of the searched file if it exist in [number] depth range in current hierarchy of files.
 	* -delete : find and delete the parameter file if it exists in current hierarchy of files.
+	* -printf [format] : get a specific information about the searched file(if it existis) depending on the entered [format]:
+		
+		[format]:
+			
+			%b : print file size in bytes
+			%d : print if the file is directory or not
+			%t : print file last modified time
+			%n : print file name
+			%p : print file access rights

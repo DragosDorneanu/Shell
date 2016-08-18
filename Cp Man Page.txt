@@ -1,0 +1,2 @@
+Copy Man Page
+Here you will find information about "cp" function.
