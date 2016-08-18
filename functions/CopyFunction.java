@@ -58,7 +58,7 @@ public class CopyFunction
 		ArrayList<Path> fileArgumentsToBeCopied = new ArrayList<Path>();
 		parseArguments(fileArgumentsToBeCopied, arguments);
 		Path destinationPath = getDestinationPath(fileArgumentsToBeCopied);
-		if(!Files.exists(destinationPath) || !Files.isDirectory(destinationPath))
+		if(!Files.isDirectory(destinationPath))
 			throw new CopyFunctionException();
 		copyFilesToDestinationDirectory(fileArgumentsToBeCopied, destinationPath);
 	}
