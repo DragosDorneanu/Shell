@@ -34,5 +34,6 @@ public class ManPageWindowListener implements WindowListener
 	{
 		ManFrame myManFrame = (ManFrame)(e.getSource());
 		myManFrame.manArea.requestFocusInWindow();
+		myManFrame.manArea.setCaretPosition(0);
 	}
 }
