@@ -120,7 +120,15 @@ public class ShellFrame extends Frame
 		if(argc == 0)
 			throw new RemoveException();
 		else
-			RemoveFileFunction.remove(st.nextToken("\n").trim());
+		{
+			String nextToken = st.nextToken().trim();
+			if(nextToken.equals("-r"))
+				RemoveFileFunction.deleteArgumentDirectory(st.nextToken("\n").trim());
+			else if(st.hasMoreTokens())
+				RemoveFileFunction.remove(nextToken + ' ' + st.nextToken("\n").trim());
+			else
+				RemoveFileFunction.remove(nextToken);
+		}
 	}
 	
 	private static void tryToExecuteCreateFileFunction(StringTokenizer st) throws Exception
