@@ -163,6 +163,14 @@ public class ShellFrame extends Frame
 		else FindFunction.findWithSpecificOptions(currentPath, st.nextToken("\n").trim().toLowerCase());
 	}
 	
+	public static void tryToExecuteCopyFunction(StringTokenizer st) throws Exception
+	{
+		if(argc <= 1)
+			throw new CopyFunctionException();
+		else
+			CopyFunction.copy(st.nextToken("\n").trim());
+	}
+	
 	public static void solve() throws Exception
 	{
 		String function;
@@ -193,7 +201,7 @@ public class ShellFrame extends Frame
 			else if(function.equals("create"))
 				tryToExecuteCreateFileFunction(st);
 			else if(function.equals("cp"))
-				CopyFunction.copy(st.nextToken("\n").trim());
+				tryToExecuteCopyFunction(st);
 			else if(function.length() == 2 && function.charAt(1) == ':')
 				tryToChangeCurrentDirectoryToASpecificLocalDisk(function);
 			else 
