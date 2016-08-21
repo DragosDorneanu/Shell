@@ -185,7 +185,7 @@ public class ShellFrame extends Frame
 			else if(function.equals("find"))
 				tryToExecuteFindFunction(st);
 			else if(function.equals("cat"))
-				CatFunction.cat(new File(st.nextToken("\n").trim()));
+				CatFunction.cat(st.nextToken("\n").trim());
 			else if(function.equals("mkdir"))
 				tryToExecuteMkdirFunction(st);
 			else if(function.equals("remove"))
