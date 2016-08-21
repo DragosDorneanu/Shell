@@ -74,7 +74,7 @@ public class RemoveFileFunction
 			filePath = FileSystems.getDefault().getPath(currentPath.toString(), currentFile.getName());
 			if(Files.isDirectory(filePath))
 			{
-				recursiveRemoveDirectory(FileSystems.getDefault().getPath(currentPath.toString(), currentFile.getName()), currentFile.listFiles());
+				recursiveRemoveDirectory(filePath, currentFile.listFiles());
 				Files.delete(filePath);
 			}
 			else Files.delete(filePath);
