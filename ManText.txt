@@ -27,3 +27,7 @@ Available functions :
     * create : create a new file having the specified name and opens it for edit
     
     * cp [source 1] [source 2] ... [source n] [destination directory] : copy all files(sources) given as parameter in the destination directory
+
+    * grep [pattern] : find all file names where a specific pattern is found
+
+    * rename [fileName] [newFileName] : rename a file with [fileName] name to a file with [newFileName] name

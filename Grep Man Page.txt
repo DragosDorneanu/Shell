@@ -1,0 +1,10 @@
+Grep Man Page
+Here you will find information about "grep" function.
+
+Basic information :
+	* grep [pattern] : gives you all file names which contains a specific pattern from your current directory
+
+Available options :
+	-reverse : from your current directory, this option gives you all file names in which a specific pattern is not found
+	-count : count the number of the grep [pattern] results
+	-recursive : gives all file names which contains a specific pattern from your current hierarchy of files

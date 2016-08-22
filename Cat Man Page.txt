@@ -1,2 +1,11 @@
 Cat Man Page
 Here you will find information about "cat" function.
+
+Basic infomation :
+	* print in shell window the content of a .txt file
+
+Available options :
+	* -revers : print file content from end to begin
+	* -first [number] : print first [number] lines contained by the file argument
+	* -last [number] : print last [number] lines contained by the file argument
+	* -n : print file content and append the number of lines of the output
