@@ -163,12 +163,30 @@ public class ShellFrame extends Frame
 		else FindFunction.findWithSpecificOptions(currentPath, st.nextToken("\n").trim().toLowerCase());
 	}
 	
-	public static void tryToExecuteCopyFunction(StringTokenizer st) throws Exception
+	private static void tryToExecuteCopyFunction(StringTokenizer st) throws Exception
 	{
 		if(argc <= 1)
 			throw new CopyFunctionException();
 		else
 			CopyFunction.copy(st.nextToken("\n").trim());
+	}
+	
+	private static void tryToExecuteGrepFunction(StringTokenizer st) throws GrepException
+	{
+		if(argc == 0)
+			throw new GrepException();
+		else if(argc == 1)
+			GrepFunction.grepPattern(st.nextToken("\n").trim());
+		else
+			GrepFunction.grep(st.nextToken("\n").trim());
+	}
+	
+	private static void tryToExecuteRenameFunction(StringTokenizer st) throws RenameException
+	{
+		if(argc <= 1)
+			throw new RenameException();
+		else
+			RenameFunction.rename(st.nextToken("\n").trim());
 	}
 	
 	public static void solve() throws Exception
@@ -202,6 +220,10 @@ public class ShellFrame extends Frame
 				tryToExecuteCreateFileFunction(st);
 			else if(function.equals("cp"))
 				tryToExecuteCopyFunction(st);
+			else if(function.equals("grep"))
+				tryToExecuteGrepFunction(st);
+			else if(function.equals("rename"))
+				tryToExecuteRenameFunction(st);
 			else if(function.length() == 2 && function.charAt(1) == ':')
 				tryToChangeCurrentDirectoryToASpecificLocalDisk(function);
 			else 
