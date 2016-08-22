@@ -47,6 +47,10 @@ public class ManFunction
 			in = new BufferedReader(new FileReader("Cat Man Page.txt"));
 		else if(functionName.equals("cp"))
 			in = new BufferedReader(new FileReader("Cp Man Page.txt"));
+		else if(functionName.equals("grep"))
+			in = new BufferedReader(new FileReader("Grep Man Page.txt"));
+		else if(functionName.equals("rename"))
+			in = new BufferedReader(new FileReader("Rename Man Page.txt"));
 		else
 			throw new ManException();
 		while((line = in.readLine()) != null)
