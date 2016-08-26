@@ -1,5 +1,0 @@
-Copy Man Page
-Here you will find information about "cp" function.
-
-Basic information :
-	* copy [file1] [file2] ... [fileN] [directory] : copy files to directory
