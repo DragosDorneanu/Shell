@@ -173,7 +173,7 @@ public class ListDirectoryFunction
 			return 7;
 		if(type.equals("-flac"))
 			return 8;
-		if(type.equals("-mp3"))
+		if(type.equals("-mp4"))
 			return 9;
 		if(type.equals("-zip"))
 			return 10;
@@ -195,6 +195,8 @@ public class ListDirectoryFunction
 			return 18;
 		if(type.equals("-rights"))
 			return 19;
+		if(type.equals("-dir"))
+			return 20;
 		return -1;
 	}
 	
@@ -211,6 +213,15 @@ public class ListDirectoryFunction
 		for(int index = 0; index < docs.length; ++index)
 		{
 			if(!docs[index].getName().endsWith(fileType))
+				docs[index] = null;
+		}
+	}
+	
+	private static void getDirectories(File[] docs)
+	{
+		for(int index = 0; index < docs.length; ++index)
+		{
+			if(!docs[index].isDirectory())
 				docs[index] = null;
 		}
 	}
@@ -233,7 +244,7 @@ public class ListDirectoryFunction
 			case 6 : getFilesWithASpecificType(docs, ".cpp"); break;
 			case 7 : getFilesWithASpecificType(docs, ".exe"); break;
 			case 8 : getFilesWithASpecificType(docs, ".flac"); break;
-			case 9 : getFilesWithASpecificType(docs, ".mp3"); break;
+			case 9 : getFilesWithASpecificType(docs, ".mp4"); break;
 			case 10 : getFilesWithASpecificType(docs, ".zip"); break;
 			case 11 : getFilesWithASpecificType(docs, ".jar"); break;
 			case 12 : getFilesWithASpecificType(docs, ".jpg"); break;
@@ -244,6 +255,7 @@ public class ListDirectoryFunction
 			case 17 : getFilesWithASpecificType(docs, ".css"); break;
 			case 18 : getFilesWithASpecificType(docs, ".rar"); break;
 			case 19 : displayListWithAccessRights = true; break;
+			case 20 : getDirectories(docs); break;
 			default : throw new ListException();
 			}
 		}
