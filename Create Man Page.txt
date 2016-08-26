@@ -1,2 +1,0 @@
-Create Man Page
-Here you will find information about "create" function.
