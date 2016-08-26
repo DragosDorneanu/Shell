@@ -1,5 +1,0 @@
-Rename Man Page
-Here you will find information about "rename" function.
-
-Basic information :
-	* rename [fileName] [newFileName] : rename file with [fileName] name to file with [newFileName] name
