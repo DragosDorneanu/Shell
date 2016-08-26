@@ -1,2 +1,0 @@
-Open Man Page
-Here you will find information about "open" function.
