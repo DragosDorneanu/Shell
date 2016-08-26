@@ -1,2 +1,0 @@
-Exit Man Page
-Here you will find information about "exit" function.
