@@ -9,7 +9,9 @@ public class ManPageWindowListener implements WindowListener
 	public void windowActivated(WindowEvent e) {}
 
 	@Override
-	public void windowClosed(WindowEvent e) {
+	public void windowClosed(WindowEvent e) 
+	{
+		ShellFrame.thisShellFrame.setBounds(ManFrame.thisManPage.getBounds());
 		ShellFrame.commandArea.requestFocus();
 	}
 

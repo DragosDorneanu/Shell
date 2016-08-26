@@ -13,7 +13,7 @@ public class ManFrame extends Frame
 	
 	public ManFrame(String text)
 	{
-		this.setBounds(200, 200, 850, 400);
+		this.setBounds(ShellFrame.thisShellFrame.getBounds());
 		this.setResizable(false);
 		this.setTitle("My Shell Man Page");
 		this.addWindowListener(new ManPageWindowListener());

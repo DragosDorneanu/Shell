@@ -30,7 +30,7 @@ public class ShellFrame extends Frame
 		this.setResizable(false);
 		this.setTitle("My Shell");
 		this.addWindowListener(new WindowListenerClass());
-		currentPath = FileSystems.getDefault().getPath("C:", "Users", "Skynet");
+		currentPath = FileSystems.getDefault().getPath("C:");
 		textFont = new Font("Dornilian", Font.BOLD, 14);
 	}
 	
