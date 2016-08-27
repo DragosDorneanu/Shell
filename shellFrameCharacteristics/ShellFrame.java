@@ -26,8 +26,7 @@ public class ShellFrame extends Frame
 	
 	private void initShellFrameCharacteristics()
 	{
-		this.setBounds(200, 200, 850, 400);
-		this.setResizable(false);
+		this.setBounds(200, 200, 950, 500);
 		this.setTitle("My Shell");
 		this.addWindowListener(new WindowListenerClass());
 		currentPath = FileSystems.getDefault().getPath("C:");
@@ -189,6 +188,14 @@ public class ShellFrame extends Frame
 			RenameFunction.rename(st.nextToken("\n").trim());
 	}
 	
+	private static void tryToExecuteMoveFunction(StringTokenizer st) throws Exception
+	{
+		if(argc <= 1)
+			throw new MoveException();
+		else
+			MoveFunction.move(st.nextToken("\n").trim());
+	}
+	
 	public static void solve() throws Exception
 	{
 		String function;
@@ -224,6 +231,8 @@ public class ShellFrame extends Frame
 				tryToExecuteGrepFunction(st);
 			else if(function.equals("rename"))
 				tryToExecuteRenameFunction(st);
+			else if(function.equals("mv"))
+				tryToExecuteMoveFunction(st);
 			else if(function.length() == 2 && function.charAt(1) == ':')
 				tryToChangeCurrentDirectoryToASpecificLocalDisk(function);
 			else 
