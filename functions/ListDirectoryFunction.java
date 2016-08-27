@@ -38,7 +38,7 @@ public class ListDirectoryFunction
 		if(Files.isDirectory(currentFilePath))
 			accessRightsOnCurrentFile.setCharAt(0, 'd');
 		if(Files.isReadable(currentFilePath))
-				accessRightsOnCurrentFile.setCharAt(1, 'r');
+			accessRightsOnCurrentFile.setCharAt(1, 'r');
 		if(Files.isWritable(currentFilePath))
 			accessRightsOnCurrentFile.setCharAt(2, 'w');
 		if(Files.isWritable(currentFilePath))
