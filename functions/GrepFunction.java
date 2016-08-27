@@ -63,12 +63,15 @@ public class GrepFunction
 	{
 		ArrayList<String> result = new ArrayList<String>();
 		File[] docs = currentPath.toFile().listFiles();
-		for(File currentFile : docs)
+		if(docs != null)
 		{
-			if(currentFile.getName().contains(pattern))
-				result.add(currentFile.getPath());
-			if(currentFile.isDirectory())
-				result.addAll(getAllPatternMatchFromDirectoryAndSubdirectories(FileSystems.getDefault().getPath(currentPath.toString(), currentFile.getName()), pattern));
+			for(File currentFile : docs)
+			{
+				if(currentFile.getName().contains(pattern))
+					result.add(currentFile.getPath());
+				if(currentFile.isDirectory())
+					result.addAll(getAllPatternMatchFromDirectoryAndSubdirectories(FileSystems.getDefault().getPath(currentPath.toString(), currentFile.getName()), pattern));
+			}
 		}
 		return result;
 	}
