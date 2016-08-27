@@ -1,4 +1,5 @@
 package functions;
+import java.io.File;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -43,13 +44,30 @@ public class CopyFunction
 		return destination;
 	}
 	
+	private static void recursiveCopyDirectory(Path currentDirectoryPath, Path destination) throws Exception
+	{
+		destination = FileSystems.getDefault().getPath(destination.toString(), currentDirectoryPath.getFileName().toString());
+		Files.copy(currentDirectoryPath , destination);
+		File[] docs = currentDirectoryPath.toFile().listFiles();
+		for(File currentFile : docs)
+		{
+			if(currentFile.isDirectory())
+				recursiveCopyDirectory(FileSystems.getDefault().getPath(currentDirectoryPath.toString(), currentFile.getName()), destination);
+			else
+				Files.copy(currentFile.toPath(), FileSystems.getDefault().getPath(destination.toString(), currentFile.getName()));
+		}
+	}
+	
 	private static void copyFilesToDestinationDirectory(ArrayList<Path> fileArgumentsToBeCopied, Path destinationDirectory) throws Exception
 	{
 		Path destinationPath;
 		for(int index = 0; index < fileArgumentsToBeCopied.size(); ++index)
 		{
 			destinationPath = FileSystems.getDefault().getPath(destinationDirectory.toString(), fileArgumentsToBeCopied.get(index).getFileName().toString());
-			Files.copy(fileArgumentsToBeCopied.get(index), destinationPath, StandardCopyOption.COPY_ATTRIBUTES);
+			if(Files.isDirectory(fileArgumentsToBeCopied.get(index)))
+				recursiveCopyDirectory(fileArgumentsToBeCopied.get(index), destinationDirectory);
+			else
+				Files.copy(fileArgumentsToBeCopied.get(index), destinationPath, StandardCopyOption.COPY_ATTRIBUTES);
 		}
 	}
 	

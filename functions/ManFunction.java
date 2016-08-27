@@ -156,7 +156,8 @@ public class ManFunction
 		return "Copy Man Page\n" +
 				"Here you will find information about \"cp\" function.\n\n" +
 				"Basic information :\n" +
-				"\t* copy [file1] [file2] ... [fileN] [directory] : copy files to directory\n";
+				"\t* copy [file1] [file2] ... [fileN] [directory] : copy files to directory\n" +
+				"\t* copy [directory] [destinationDirectory] : make a copy of the directory given as parameter and put it in a specific directory";
 	}
 	
 	private static String getGrepManText()
@@ -177,6 +178,15 @@ public class ManFunction
 				"Here you will find information about \"rename\" function.\n\n" +
 				"Basic information :\n" +
 				"\t* rename [fileName] [newFileName] : rename file with [fileName] name to file with [newFileName] name\n";
+	}
+	
+	private static String getMoveManText()
+	{
+		return "Move Man Page\n" +
+				"Here you will find information about \"mv\" function.\n\n" +
+				"Basic information :\n" +
+				"\t* mv [file1] [file2] ... [fileN] [directoryName] : move all files given as parameter in a specific directory\n" +
+				"\t* mv [directory] [destinationDirectory] : move the entire directory given as paramter into a specific directory\n";
 	}
 	
 	public static void manSpecificFunction(String functionName) throws Exception 
@@ -208,6 +218,8 @@ public class ManFunction
 			manText = getGrepManText();
 		else if(functionName.equals("rename"))
 			manText = getRenameManText();
+		else if(functionName.equals("mv"))
+			manText = getMoveManText();
 		else
 			throw new ManException();
 		ManFrame manFunctionFrame = new ManFrame(manText);

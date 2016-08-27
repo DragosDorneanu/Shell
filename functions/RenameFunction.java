@@ -22,13 +22,7 @@ public class RenameFunction
 				break;
 			name.append(' ');
 		}
-		while(st.hasMoreTokens())
-		{
-			newName.append(st.nextToken().trim());
-			if(Files.exists(getPath(name.toString())))
-				break;
-			newName.append(' ');
-		}
+		newName.append(st.nextToken("\n").trim());
 	}
 	
 	public static void rename(String arguments) throws RenameException
@@ -41,6 +35,8 @@ public class RenameFunction
 		if(!Files.exists(filePath))
 			throw new RenameException();
 		newFilePath = getPath(newFileName.toString().trim());
+		if(Files.exists(newFilePath))
+			throw new RenameException();
 		filePath.toFile().renameTo(newFilePath.toFile());
 	}
 }
