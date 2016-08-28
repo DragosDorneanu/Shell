@@ -24,7 +24,8 @@ public class ManFunction
 				"\t* create : create a new file having the specified name and opens it for edit.\n\n" +
 				"\t* cp [source 1] [source 2] ... [source n] [destination directory] : copy all files(sources) given as parameter in the destination directory.\n\n" +
 				"\t* grep [pattern] : find all file names where a specific pattern is found.\n\n" +
-				"\t* rename [fileName] [newFileName] : rename a file with [fileName] name to a file with [newFileName] name\n\n";
+				"\t* rename [fileName] [newFileName] : rename a file with [fileName] name to a file with [newFileName] name.\n\n" +
+				"\t* move [source 1] [source 2] ... [source n] [destination directory] : move all files(sources) given as parameter in the destination directory.\n\n";
 	}
 	
 	public static void man() throws Exception
