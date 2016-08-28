@@ -26,7 +26,7 @@ public class ShellFrame extends Frame
 	
 	private void initShellFrameCharacteristics()
 	{
-		this.setBounds(200, 200, 950, 500);
+		this.setBounds(200, 200, 830, 450);
 		this.setTitle("My Shell");
 		this.addWindowListener(new WindowListenerClass());
 		currentPath = FileSystems.getDefault().getPath("C:");
