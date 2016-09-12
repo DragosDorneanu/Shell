@@ -62,8 +62,17 @@ public class FindFunction
 		StringTokenizer st = new StringTokenizer(arguments);
 		while(st.hasMoreTokens())
 			args.add(st.nextToken().trim());
-		for(int index = args.size() - 1; index >= 0 && args.get(index).charAt(0) != '-' && args.get(index).charAt(0) != '%' && (args.get(index).charAt(0) < '0' || args.get(index).charAt(0) > '9'); --index)
-			fileName.insert(0, args.get(index) + ' ');
+		for(int index = args.size() - 1; index >= 0 && args.get(index).charAt(0) != '-' && args.get(index).charAt(0) != '%'; --index)
+		{
+			if(args.get(index).charAt(0) >= '0' && args.get(index).charAt(0) <= '9')
+			{
+				if(index > 0 && !args.get(index - 1).equals("-maxdepth"))
+					fileName.insert(0, args.get(index) + ' ');
+				else
+					break;
+			}
+			else fileName.insert(0, args.get(index) + ' ');
+		}
 	}
 	
 	private static Path findMaxDepth(Path filePath, int maxDepth) 
@@ -144,7 +153,7 @@ public class FindFunction
 			switch(option)
 			{
 			case 0 : if(index + 1 < args.size()){filePathInMaxDepthRange = findMaxDepth(filePath, Integer.parseInt(args.get(index + 1))); ++index; break;} else throw new FindFunctionException(); 
-			case 1 : filePathInMaxDepthRange = RemoveFileFunction.remove(filePath); break;
+			case 1 : filePathInMaxDepthRange = RemoveFileFunction.remove(filePath); ShellFrame.commandArea.setText(ShellFrame.commandArea.getText() + '\n' + "Deleted!"); break;
 			case 2 : printf(args, index + 1, filePath); break;
 			default : throw new FindFunctionException();
 			}
@@ -159,7 +168,10 @@ public class FindFunction
 		parseArgumentsAndGetFileName(arguments, args, fileName);
 		Path searchedFilePath = find(currentDirectoryPath, fileName.toString().trim().toLowerCase());
 		if(searchedFilePath != null)
+		{
+			ShellFrame.commandArea.setText(ShellFrame.commandArea.getText() + '\n' + "Searched File found : " + searchedFilePath);
 			return parseFindOptions(currentDirectoryPath, args, searchedFilePath);
+		}
 		return null;
 	}
 }
