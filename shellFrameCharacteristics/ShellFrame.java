@@ -150,16 +150,17 @@ public class ShellFrame extends Frame
 	private static void tryToExecuteFindFunction(StringTokenizer st) throws Exception
 	{
 		Path resultPath;
-		if(argc == 1)
+		String arguments = st.nextToken("\n").trim().toLowerCase();
+		if(arguments.charAt(0) != '-')
 		{
-			resultPath = FindFunction.find(currentPath, st.nextToken("\n").trim().toLowerCase());
+			resultPath = FindFunction.find(currentPath, arguments);
 			if(resultPath != null)
 				ShellFrame.commandArea.setText(ShellFrame.commandArea.getText() + "\nSearched File found : " + resultPath);
 			else
 				ShellFrame.commandArea.setText(ShellFrame.commandArea.getText() + "\nSearched File was not found\n");
 
 		}
-		else FindFunction.findWithSpecificOptions(currentPath, st.nextToken("\n").trim().toLowerCase());
+		else FindFunction.findWithSpecificOptions(currentPath, arguments);
 	}
 	
 	private static void tryToExecuteCopyFunction(StringTokenizer st) throws Exception
